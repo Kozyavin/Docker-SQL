@@ -3,10 +3,11 @@ Thumbs.db*
 HELP.md
 .gradle
 .gitignore
-.gradlew
-*.bat
+*.gradlew
+.gradlew.bat
 build/
 *.gradle
+*.build.gradle
 
 ### STS ###
 .apt_generated
