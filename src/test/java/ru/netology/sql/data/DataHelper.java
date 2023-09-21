@@ -20,22 +20,25 @@ public class DataHelper {
     }
 
     private static String getRandomLogin() {//генерация логина
-    return faker.name().username();
+        return faker.name().username();
     }
+
     private static String getRandomPassword() {//генерация пароля
-    return faker.internet().password();
+        return faker.internet().password();
     }
+
     public static AuthUser getRandomUser() { //рандомный пользователь
         return new AuthUser(getRandomLogin(), getRandomPassword());
     }
-    public static AuthUser getValidUser(){ //известный пользователь
-        return new AuthUser("vasya","qwerty123");
-        }
 
-        public static VerificationCode verificationCode(){//генерация рандомного кода
-            return new VerificationCode(faker.numerify("######"));
-        }
+    public static AuthUser getValidUser() { //известный пользователь
+        return new AuthUser("vasya", "qwerty123");
     }
+
+    public static VerificationCode verificationCode() {//генерация рандомного кода
+        return new VerificationCode(faker.numerify("######"));
+    }
+}
 
 
 

@@ -21,16 +21,17 @@ public class LoginTest {
     DashboardPage dashboardPage = new DashboardPage();
 
     @AfterAll
-    static void tearDownAll(){
+    static void tearDownAll() {
         SQLHelper.cleanDatabase();
     }
+
     @BeforeEach
-    void setUp(){
+    void setUp() {
         open("http://localhost:9999", LoginPage.class);
     }
 
     @Test
-    void validUserTest(){
+    void validUserTest() {
 
         var authInfo = DataHelper.getValidUser(); //"известного пользователя" поместили в authInfo
         loginPage.validLogin(authInfo); //применили метод для заполнения на странице LoginPage полей логина/пароля "известного пользователя"
@@ -41,15 +42,17 @@ public class LoginTest {
         dashboardPage.DashboardPageVisible(); //проверяем видимость страницы DashboardPage
 
     }
+
     @Test
-    void invalidLoginTest(){
+    void invalidLoginTest() {
 
         var authInfo = DataHelper.getRandomUser(); //"рандомного пользователя" поместили в authInfo
         loginPage.validLogin(authInfo); //применили метод для заполнения на странице LoginPage полей логина/пароля "рандомного пользователя"
-        verificationPage.ErrorNotification("Ошибка! \nНеверно указан логин или пароль"); //проверяем появление сообщения об ошибке
+        verificationPage.errorNotification("Ошибка! \nНеверно указан логин или пароль"); //проверяем появление сообщения об ошибке
     }
+
     @Test
-    void invalidCodeTest(){
+    void invalidCodeTest() {
 
         var authInfo = DataHelper.getValidUser(); //"известного пользователя" поместили в authInfo
         loginPage.validLogin(authInfo); //применили метод для заполнения на странице LoginPage полей логина/пароля "известного пользователя"
@@ -57,19 +60,16 @@ public class LoginTest {
 
         var verificationCode = DataHelper.verificationCode();//рандомный код кладём в переменную
         verificationPage.verifyCode(verificationCode); //заполняем поле кода на странице VeryficationPage рандомным значением
-        verificationPage.ErrorNotification("Ошибка! \nНеверно указан код! Попробуйте ещё раз."); //проверяем появление сообщения об ошибке
+        verificationPage.errorNotification("Ошибка! \nНеверно указан код! Попробуйте ещё раз."); //проверяем появление сообщения об ошибке
     }
+
     @Test
-    void EnterThreeInvalidPasswordTest(){
+    void EnterThreeInvalidPasswordTest() {
 
-        var authInfo = DataHelper.getRandomUser(); //"известного пользователя" поместили в authInfo
+        loginPage.invalidLogin(); //применили метод для заполнения на странице LoginPage полей логина/пароля "рандомного пользователя"
 
-        for(int i =0;i<3;i++) {
-            loginPage.validLogin(authInfo); //применили метод для заполнения на странице LoginPage полей логина/пароля "рандомного пользователя"
-            $("[data-test-id='login'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);//очистка поля логин
-            $("[data-test-id='password'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);//очистка поля пароль
-        }
-        verificationPage.ErrorNotification("Страница аутентификации заблокирована. \nПопробуйте позже.");  //проверяем появление сообщения об ошибке
-        }
+        verificationPage.errorNotification("Страница аутентификации заблокирована. \nПопробуйте позже.");
+        //проверяем появление сообщения о блокировке при 3-х кратном НЕвалидном пароле на странице LoginPage
     }
+}
 

@@ -11,7 +11,7 @@ public class VerificationPage {
     public void veryficationPageVisible(){ //проверка на загрузку/отображение страницы
         $("[data-test-id=code] input").shouldBe(visible);
     }
-    public void ErrorNotification(String expectedText){ //проверка на появление сообщения об ошибке
+    public void errorNotification(String expectedText){ //проверка на появление сообщения об ошибке
         $("[data-test-id = error-notification] .notification__content").shouldHave(Condition.exactText(expectedText)).shouldBe(Condition.visible);
     }
     public void verifyCode(DataHelper.VerificationCode verificationCode){
@@ -19,11 +19,5 @@ public class VerificationPage {
         $("[data-test-id = code] input").setValue(verificationCode.getCode());//вводим код
         $("[data-test-id = action-verify] .button__content").click();//нажимаем кнопку
     }
-    /*public void verify (String verificationCode){
-        $("[data-test-id = code] input").setValue(verificationCode);
-        $("[data-test-id = action-verify] input").click();
-    }*/
-    /*public DashboardPage validCode(String verificationCode){
-        return verifyCode(verificationCode);
-    }*/
+
 }
