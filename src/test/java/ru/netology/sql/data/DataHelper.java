@@ -15,6 +15,11 @@ public class DataHelper {
         String password;
     }
     @Value
+    public static class InvalidUserLogin{//объект -юзер (для трёхкратного ввода)
+        String invlogin;
+        String invpassword;
+    }
+    @Value
     public static class VerificationCode{//объект -код
         String code;
     }
@@ -33,6 +38,9 @@ public class DataHelper {
 
     public static AuthUser getValidUser() { //известный пользователь
         return new AuthUser("vasya", "qwerty123");
+    }
+    public static InvalidUserLogin getInvalidUser() { //известный пользователь
+        return new InvalidUserLogin("vasya", getRandomPassword());
     }
 
     public static VerificationCode verificationCode() {//генерация рандомного кода

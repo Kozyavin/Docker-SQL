@@ -1,24 +1,18 @@
 package ru.netology.sql.test;
 
-import com.mysql.cj.log.Log;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 import ru.netology.sql.data.DataHelper;
 import ru.netology.sql.data.SQLHelper;
 import ru.netology.sql.pageobject.DashboardPage;
 import ru.netology.sql.pageobject.LoginPage;
 import ru.netology.sql.pageobject.VerificationPage;
-
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class LoginTest {
 
-    LoginPage loginPage = new LoginPage(); //создали экземпляр класса страницы логина/пароля
-    VerificationPage verificationPage = new VerificationPage();
-    DashboardPage dashboardPage = new DashboardPage();
+
 
     @AfterAll
     static void tearDownAll() {
@@ -29,6 +23,9 @@ public class LoginTest {
     void setUp() {
         open("http://localhost:9999", LoginPage.class);
     }
+    LoginPage loginPage = new LoginPage(); //создали экземпляр класса страницы логина/пароля
+    VerificationPage verificationPage = new VerificationPage();
+    DashboardPage dashboardPage = new DashboardPage();
 
     @Test
     void validUserTest() {
@@ -65,10 +62,10 @@ public class LoginTest {
 
     @Test
     void EnterThreeInvalidPasswordTest() {
+        var userName = DataHelper.getInvalidUser();
+        loginPage.invalidLogin(userName); //применили метод для заполнения на странице LoginPage полей логина/пароля
 
-        loginPage.invalidLogin(); //применили метод для заполнения на странице LoginPage полей логина/пароля "рандомного пользователя"
-
-        verificationPage.errorNotification("Страница аутентификации заблокирована. \nПопробуйте позже.");
+        loginPage.errorNotificationLoginPage("Страница аутентификации заблокирована. \nПопробуйте позже.");
         //проверяем появление сообщения о блокировке при 3-х кратном НЕвалидном пароле на странице LoginPage
     }
 }
