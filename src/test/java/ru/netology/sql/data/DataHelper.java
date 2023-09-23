@@ -8,21 +8,8 @@ import java.util.Locale;
 public class DataHelper {
     static Faker faker = new Faker(new Locale("en"));
 
-    public  DataHelper(){}//пустой контейнер
-    @Value
-    public static class AuthUser{//объект -юзер
-        String login;
-        String password;
-    }
-    @Value
-    public static class InvalidUserLogin{//объект -юзер (для трёхкратного ввода)
-        String invlogin;
-        String invpassword;
-    }
-    @Value
-    public static class VerificationCode{//объект -код
-        String code;
-    }
+    public DataHelper() {
+    }//пустой контейнер
 
     private static String getRandomLogin() {//генерация логина
         return faker.name().username();
@@ -39,12 +26,24 @@ public class DataHelper {
     public static AuthUser getValidUser() { //известный пользователь
         return new AuthUser("vasya", "qwerty123");
     }
-    public static InvalidUserLogin getInvalidUser() { //известный пользователь
-        return new InvalidUserLogin("vasya", getRandomPassword());
-    }
 
     public static VerificationCode verificationCode() {//генерация рандомного кода
         return new VerificationCode(faker.numerify("######"));
+    }
+
+    public void getInvalidUser() { //известный пользователь
+        getRandomPassword();
+    }
+
+    @Value
+    public static class AuthUser {//объект -юзер
+        String login;
+        String password;
+    }
+
+    @Value
+    public static class VerificationCode {//объект -код
+        String code;
     }
 }
 

@@ -21,14 +21,15 @@ public class LoginPage {
         Selenide.$("[data-test-id = password] input").setValue(user.getPassword()); //вводим пароль
         Selenide.$("[data-test-id = action-login]").click(); //нажимаем кнопку "Продолжить"
     }
-    public void invalidLogin(DataHelper.InvalidUserLogin user) {  //метод ввода НЕ валидного пароля, при сохранении одинакового логина
+
+    public void invalidLogin(DataHelper.AuthUser user) {  //метод ввода НЕ валидного пароля, при сохранении одинакового логина
         //проверка появления сообщения о блокировке при трёхкратном вводе НЕ валидного пароля
 
-        $("[data-test-id = login] input").setValue(user.getInvlogin()); //вводим логин
+        $("[data-test-id = login] input").setValue(user.getLogin()); //вводим логин
 
         for(int i = 0; i < 4 ; i++ ) {
             $("[data-test-id='password'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);//очистка поля пароль
-            $("[data-test-id='password'] input").setValue(user.getInvpassword());
+            $("[data-test-id='password'] input").setValue(user.getPassword());
             $("[data-test-id = action-login]").click(); //нажимаем кнопку "Продолжить"
         }
     }
