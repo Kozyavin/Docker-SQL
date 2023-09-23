@@ -31,10 +31,6 @@ public class DataHelper {
         return new VerificationCode(faker.numerify("######"));
     }
 
-    public void getInvalidUser() { //известный пользователь
-        getRandomPassword();
-    }
-
     @Value
     public static class AuthUser {//объект -юзер
         String login;
